@@ -1,0 +1,95 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container my-5" id="order-form">
+    <div class="form-container bg-light p-4 rounded shadow" >
+        <h1 class="text-center mb-4">Форма заказа</h1>
+        
+        <form>
+            <!-- Персональные данные -->
+            <div class="row mb-3">
+                <div class="col-md-4 mb-3">
+                    <label for="surname" class="form-label">Фамилия</label>
+                    <input type="text" class="form-control" id="surname" name="surname">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="name" class="form-label">Имя*</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="patronymic" class="form-label">Отчество</label>
+                    <input type="text" class="form-control" id="patronymic" name="patronymic">
+                </div>
+            </div>
+
+            <!-- Контактные данные -->
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="tel" class="form-control" id="phone" name="phone">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+            </div>
+
+            <!-- Способ оплаты и доставки -->
+            <div class="row mb-3">
+                <div class="col-md-6 mb-3">
+                    <label for="payment_method" class="form-label">Способ оплаты*</label>
+                    <select class="form-select" id="payment_method" name="payment_method" required>
+                        <option value="cash">Наличными</option>
+                        <option value="card">Банковской картой</option>
+                        <option value="online">Онлайн-платеж</option>
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="delivery_method" class="form-label">Способ доставки*</label>
+                    <select class="form-select" id="delivery_method" name="delivery_method" required>
+                        <option value="courier">Курьером</option>
+                        <option value="pickup">Самовывоз</option>
+                        <option value="post">Почта России</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Адрес доставки -->
+            <div class="mb-3">
+                <label for="address" class="form-label">Адрес доставки*</label>
+                <textarea class="form-control" id="address" name="address" rows="2" required></textarea>
+            </div>
+
+            <!-- Выбор товара -->
+            <div class="row mb-3">
+                <div class="col-md-8 mb-3">
+                    <label for="product_id" class="form-label">Товар*</label>
+                    <select class="form-select" id="product_id" name="product_id" required>
+                        {% for product in products %}
+                            <option value="{{ product.id }}" data-price="{{ product.price }}">
+                                {{ product.name }} ({{ product.price }} руб.)
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="products_count" class="form-label">Количество*</label>
+                    <input type="number" class="form-control" id="products_count" name="products_count" min="1" value="1" required>
+                </div>
+            </div>
+
+            <!-- Итоговая сумма -->
+            <div class="mb-4 p-3 bg-white rounded border">
+                <h5 class="d-flex justify-content-between align-items-center">
+                    <span>Итоговая сумма:</span>
+                    <span id="total">0 руб.</span>
+                </h5>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Оформить заказ</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

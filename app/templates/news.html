@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<h1 class="mb-4 page-text">Последние новости</h1>
+
+<div class="row g-4">
+    {% for news_particular in news %}
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100">
+            <img src="{{ url_for('news_media', filename='news-' + news_particular.id + '.png') }}" class="card-img-top" alt="Новость 1">
+            <div class="card-body">
+                <h5 class="card-title">{{ news_particular.title }}</h5>
+                <p class="card-text">{{ news_particular.content }} </p>
+<!--                <a href="#" class="btn btn-primary">Читать далее</a>-->
+            </div>
+            <div class="card-footer text-muted">
+                {{ news_particular.date }}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
